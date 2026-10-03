@@ -4,5 +4,11 @@
     "obs": "2026-10-01",
     "fetched": "2026-10-03",
     "source": "FRED IG spread"
+  },
+  "cape": {
+    "value": 41.38,
+    "obs": "2026-10",
+    "fetched": "2026-10-03",
+    "source": "Shiller CAPE"
   }
 }

@@ -18,14 +18,14 @@ A research project that measures how financially fragile the global AI investmen
 | Component | Stress (0-100) |
 |---|---|
 | Market exuberance | 84 |
-| Valuation | 74 |
+| Valuation | 76 |
 | Capex / monetization | 67 |
 | Profitability / cash flow | 60 |
 | Capital flow / financing | 42 |
 | Physical infrastructure | 35 |
 | Supply vs demand | 19 |
 
-This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement. Last update had fetch problems: Saved CAPE 0.018722853569909235 was implausible and was discarded; Shiller CAPE: multpl: Shiller PE not found on multpl page; yale: CAPE 0.018722853569909235 outside plausible range 5.0-80.0.
+This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement.
 <!-- ABSI:END -->
 
 Evidence **against** the bubble thesis (Nvidia revenue +106% at 75% gross margin, lab revenue growing faster than capex, scarce leading-edge compute) is listed next to the supporting evidence in [`data/evidence_2026-10-02.json`](data/evidence_2026-10-02.json).

@@ -1,15 +1,15 @@
 {
   "date": "2026-10-03",
   "version": "ABSI v0.2",
-  "composite": 57.19,
+  "composite": 57.47,
   "confidence": 0.2522,
   "schemes": {
-    "Protocol weights": 57.19,
-    "Equal weights": 54.57,
-    "Valuation halved": 52.67
+    "Protocol weights": 57.47,
+    "Equal weights": 54.73,
+    "Valuation halved": 52.81
   },
   "components": {
-    "V": 74.5,
+    "V": 75.62,
     "M": 66.92,
     "S": 19.38,
     "P": 60.36,
@@ -19,8 +19,5 @@
   },
   "indicators_used": 18,
   "stale": {},
-  "errors": [
-    "Saved CAPE 0.018722853569909235 was implausible and was discarded",
-    "Shiller CAPE: multpl: Shiller PE not found on multpl page; yale: CAPE 0.018722853569909235 outside plausible range 5.0-80.0"
-  ]
+  "errors": []
 }
