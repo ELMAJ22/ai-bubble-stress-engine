@@ -1,10 +1,4 @@
 {
-  "cape": {
-    "value": 0.018722853569909235,
-    "obs": "2023-09",
-    "fetched": "2026-10-03",
-    "source": "Shiller CAPE"
-  },
   "ig_oas": {
     "value": 0.86,
     "obs": "2026-10-01",
