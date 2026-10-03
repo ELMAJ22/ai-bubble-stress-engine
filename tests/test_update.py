@@ -39,6 +39,45 @@ class Parsing(unittest.TestCase):
         self.assertEqual(U.parse_shiller_rows(rows), ("2026-10", 41.3))
         self.assertEqual(U.parse_shiller_rows(rows[:4])[0], "2026-09")
 
+    def test_multpl_parse(self):
+        html = '<div>Current Shiller PE Ratio:</div> <b>Current Shiller PE Ratio:</b> 41.38 <i>+0.31</i>'
+        self.assertEqual(U.parse_multpl(html), 41.38)
+        with self.assertRaises(ValueError):
+            U.parse_multpl("<html>nothing</html>")
+
+    def test_implausible_cape_rejected(self):
+        for bad in (0.0187, 150):
+            with self.assertRaises(ValueError):
+                U.check_cape(bad)
+        self.assertEqual(U.check_cape(41.38), 41.38)
+
+    def test_cape_falls_back_and_rejects_stale_yale(self):
+        orig_f, orig_s = U.fetch, U.read_shiller
+        U.fetch = lambda *a, **k: b"<html>broken</html>"
+        try:
+            U.read_shiller = lambda: ("2023-09", 30.0)
+            with self.assertRaises(ValueError):
+                U.read_cape(dt.date(2026, 10, 3))
+            U.read_shiller = lambda: ("2026-09", 40.0)
+            self.assertEqual(U.read_cape(dt.date(2026, 10, 3)), ("2026-09", 40.0))
+        finally:
+            U.fetch, U.read_shiller = orig_f, orig_s
+
+    def test_bad_saved_cape_is_discarded(self):
+        with tempfile.TemporaryDirectory() as d:
+            data = Path(d)
+            for f in ("config_v0.2.json", "indicators_2026-10-02.json"):
+                (data / f).write_text((U.DATA / f).read_text())
+            (data / "auto_state.json").write_text(json.dumps({"cape": {"value": 0.0187, "obs": "2023-09", "fetched": "2026-10-02", "source": "x"}}))
+            orig = U.fetch
+            U.fetch = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("offline"))
+            try:
+                results, errors = U.run(today=dt.date(2026, 10, 3), data=data, readme_path=data / "README.md")
+            finally:
+                U.fetch = orig
+            self.assertTrue(any("implausible" in e for e in errors))
+            self.assertNotIn("cape", json.loads((data / "auto_state.json").read_text()))
+
     def test_shiller_missing_column(self):
         with self.assertRaises(ValueError):
             U.parse_shiller_rows([["a", "b"], [2026.1, 3]])

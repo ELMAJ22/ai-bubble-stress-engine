@@ -3,7 +3,7 @@
 Usage:  python scripts/update_data.py
 
 Sources (all free, no account needed):
-  - Shiller CAPE:   http://www.econ.yale.edu/~shiller/data/ie_data.xls   (monthly)
+  - Shiller CAPE:   https://www.multpl.com/shiller-pe (current), backup Yale ie_data.xls (monthly)
   - US IG spread:   https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A0CM  (daily)
 
 If a source fails, the last known value is kept, the failure is recorded, and the
@@ -27,6 +27,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 UA = "Mozilla/5.0 (ABSI open research project; github.com/ELMAJ22/ai-bubble-stress-engine)"
 SHILLER_URL = "http://www.econ.yale.edu/~shiller/data/ie_data.xls"
+MULTPL_URL = "https://www.multpl.com/shiller-pe"
+CAPE_MIN, CAPE_MAX = 5.0, 80.0   # outside this range a CAPE reading is treated as a parsing error
 FRED_IG_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A0CM"
 START, END = "<!-- ABSI:START -->", "<!-- ABSI:END -->"
 
@@ -98,6 +100,40 @@ def read_shiller():
     sheet = book.sheet_by_name("Data")
     rows = [[c.value for c in sheet.row(i)] for i in range(sheet.nrows)]
     return parse_shiller_rows(rows)
+
+
+def parse_multpl(html):
+    """Current Shiller PE from multpl.com ('Current Shiller PE Ratio: 41.38')."""
+    m = re.search(r"Current\s+Shiller\s+PE\s+Ratio:?\s*(?:<[^>]*>\s*)*([0-9]+(?:\.[0-9]+)?)", html, re.I)
+    if not m:
+        raise ValueError("Shiller PE not found on multpl page")
+    return float(m.group(1))
+
+
+def check_cape(value):
+    if not (CAPE_MIN <= value <= CAPE_MAX):
+        raise ValueError(f"CAPE {value} outside plausible range {CAPE_MIN}-{CAPE_MAX}")
+    return value
+
+
+def read_cape(today):
+    """Try multpl.com first (current), then Yale's file (monthly, can be stale)."""
+    problems = []
+    try:
+        v = check_cape(parse_multpl(fetch(MULTPL_URL).decode("utf-8", "replace")))
+        return today.strftime("%Y-%m"), v
+    except Exception as e:  # noqa: BLE001
+        problems.append(f"multpl: {str(e)[:60]}")
+    try:
+        obs, v = read_shiller()
+        check_cape(v)
+        y, m = int(obs[:4]), int(obs[5:7])
+        if (today.year - y) * 12 + (today.month - m) > 4:
+            raise ValueError(f"Yale file is stale (latest {obs})")
+        return obs, v
+    except Exception as e:  # noqa: BLE001
+        problems.append(f"yale: {str(e)[:60]}")
+    raise ValueError("; ".join(problems))
 
 
 # ---------- scoring ----------
@@ -204,8 +240,11 @@ def run(today=None, data=DATA, readme_path=None):
     state_path = data / "auto_state.json"
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
     errors = []
+    if "cape" in state and not (CAPE_MIN <= state["cape"].get("value", 0) <= CAPE_MAX):
+        errors.append(f"Saved CAPE {state['cape'].get('value')} was implausible and was discarded")
+        state.pop("cape")
 
-    for key, getter, label in (("cape", read_shiller, "Shiller CAPE"),
+    for key, getter, label in (("cape", lambda: read_cape(today), "Shiller CAPE"),
                                ("ig_oas", lambda: parse_fred_csv(fetch(FRED_IG_URL).decode("utf-8", "replace")), "FRED IG spread")):
         try:
             obs, value = getter()
