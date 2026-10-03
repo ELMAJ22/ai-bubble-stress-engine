@@ -7,23 +7,23 @@ A research project that measures how financially fragile the global AI investmen
 **Central question:** is the economic value created by AI growing quickly enough, profitably enough and sustainably enough to justify the capital being committed to it?
 
 <!-- ABSI:START -->
-## Current reading (ABSI v0.1 (launch), data as of 2026-10-02)
+## Current reading (ABSI v0.2, data as of 2026-10-03)
 
 | | |
 |---|---|
-| **Composite stress** | **58 / 100** (Elevated to high stress; 54 to 58 across three weighting schemes) |
-| **Confidence** | **about 25 / 100** (17 of about 34 planned indicators have data) |
-| **Provisional regime** | Speculative expansion |
+| **Composite stress** | **43 / 100** (Moderate stress; 43 to 47 across three weighting schemes) |
+| **Confidence** | **about 25 / 100** (18 of about 34 planned indicators have data) |
+| **Provisional regime** | Fundamental to speculative expansion |
 
 | Component | Stress (0-100) |
 |---|---|
 | Market exuberance | 84 |
-| Valuation | 74 |
 | Capex / monetization | 67 |
 | Profitability / cash flow | 60 |
-| Capital flow / financing | 57 |
+| Capital flow / financing | 42 |
 | Physical infrastructure | 35 |
 | Supply vs demand | 19 |
+| Valuation | 19 |
 
 This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement.
 <!-- ABSI:END -->
