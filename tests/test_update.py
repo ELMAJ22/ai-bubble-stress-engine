@@ -142,8 +142,9 @@ class Outputs(unittest.TestCase):
     def test_failed_fetches_keep_state_and_still_write(self):
         with tempfile.TemporaryDirectory() as d:
             data = Path(d)
-            for n in ("config_v0.2.json", "indicators_2026-10-02.json", "auto_state.json", "snapshots.csv"):
+            for n in ("config_v0.2.json", "indicators_2026-10-02.json", "snapshots.csv"):
                 (data / n).write_text((ROOT / "data" / n).read_text())
+            (data / "auto_state.json").write_text(json.dumps({"cape": {"value": 40.9, "obs": "2026-09", "fetched": "2026-10-02", "source": "launch value"}}))
             orig = U.fetch
             U.fetch = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("offline"))
             try:
