@@ -42,6 +42,10 @@ class Parsing(unittest.TestCase):
     def test_multpl_parse(self):
         html = '<div>Current Shiller PE Ratio:</div> <b>Current Shiller PE Ratio:</b> 41.38 <i>+0.31</i>'
         self.assertEqual(U.parse_multpl(html), 41.38)
+        html2 = '<div id="current"><b>Current Shiller PE Ratio:</b>\n\n 41.38\n<span class="p4 up">+0.31</span></div>'
+        self.assertEqual(U.parse_multpl(html2), 41.38)
+        html3 = "<title>Shiller PE Ratio by Month</title><p>Shiller&nbsp;PE Ratio: <i>41.4</i></p>"
+        self.assertEqual(U.parse_multpl(html3), 41.4)
         with self.assertRaises(ValueError):
             U.parse_multpl("<html>nothing</html>")
 

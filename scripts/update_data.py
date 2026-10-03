@@ -103,11 +103,18 @@ def read_shiller():
 
 
 def parse_multpl(html):
-    """Current Shiller PE from multpl.com ('Current Shiller PE Ratio: 41.38')."""
-    m = re.search(r"Current\s+Shiller\s+PE\s+Ratio:?\s*(?:<[^>]*>\s*)*([0-9]+(?:\.[0-9]+)?)", html, re.I)
-    if not m:
-        raise ValueError("Shiller PE not found on multpl page")
-    return float(m.group(1))
+    """Current Shiller PE from multpl.com. Tolerant of layout: tries the raw page, then the page as plain text."""
+    import html as _html
+    pat = r"Shiller\s+(?:PE|P/E)\s+Ratio[^0-9]{0,300}?([0-9]{1,3}(?:\.[0-9]+)?)"
+    text = re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", html)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", _html.unescape(text))
+    for src in (html, text):
+        for m in re.finditer(pat, src, re.I):
+            v = float(m.group(1))
+            if CAPE_MIN <= v <= CAPE_MAX:
+                return v
+    raise ValueError("Shiller PE not found on multpl page; page starts: " + text[:120])
 
 
 def check_cape(value):
