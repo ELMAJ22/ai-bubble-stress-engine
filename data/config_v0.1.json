@@ -1,0 +1,49 @@
+{
+  "asOf": "2026-10-02",
+  "footer": "ABSI v0.1. Weights and anchors are a starting hypothesis, frozen for this version; any change creates v0.2. Rows tagged judgment are scored by the analyst from reported facts and are the weakest part of the index. Prepared with Claude, a model made by Anthropic, which is also the subject of one indicator (Anthropic's IPO valuation), so independently check the lab rows. Not investment advice.",
+  "gaps": [
+    "GPU and data-center utilization: no reliable public series.",
+    "Token volume and price per token, revenue per GPU-hour, revenue per MW: not disclosed consistently.",
+    "Enterprise AI ROI and productivity (labor productivity, revenue per employee): not collected yet.",
+    "Forward P/E, EV/gross profit and reverse-DCF implied growth for Nvidia and hyperscalers: not collected yet.",
+    "VC and private funding flows, IPO failure rate, insider selling, short interest: not collected yet.",
+    "Power-queue delays and cancelled data-center projects: not collected yet.",
+    "Historical backtest against dot-com, 2008, Japan and semiconductor cycles: not started. Until it runs, the thresholds and weights are unvalidated.",
+    "Recognized revenue versus run-rate revenue for the AI labs: run rates can overstate a year's actual revenue."
+  ],
+  "planned": {
+    "E": 5,
+    "F": 5,
+    "I": 4,
+    "M": 5,
+    "P": 5,
+    "S": 5,
+    "V": 5
+  },
+  "requiredRevenue": {
+    "capexB": 750,
+    "grossMargin": 0.6,
+    "lives": [
+      3,
+      5.5,
+      6
+    ],
+    "returns": [
+      0,
+      0.05,
+      0.1,
+      0.15,
+      0.2
+    ]
+  },
+  "version": "ABSI v0.1",
+  "weights": {
+    "E": 10,
+    "F": 5,
+    "I": 5,
+    "M": 20,
+    "P": 15,
+    "S": 20,
+    "V": 25
+  }
+}

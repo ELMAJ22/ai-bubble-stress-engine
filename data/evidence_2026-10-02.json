@@ -1,0 +1,98 @@
+[
+  {
+    "order": 1,
+    "side": "for",
+    "src": "TheStreet / GuruFocus",
+    "text": "CAPE is about 41, the second-highest reading on record and close to the 2000 peak.",
+    "url": "https://www.gurufocus.com/economic_indicators/56/sp-500-shiller-cape-ratio",
+    "id": "f1"
+  },
+  {
+    "order": 2,
+    "side": "for",
+    "src": "Yield Theory / MLQ",
+    "text": "2026 capex guidance is about $720-745B across Microsoft, Alphabet, Amazon and Meta, roughly 38% of combined revenue (MLQ). To meet full-year targets, Microsoft, Alphabet and Meta must raise quarterly spending 25-51% above Q2 levels in the second half.",
+    "url": "https://www.yieldtheory.app/research/hyperscaler-ai-capex-tracker-2026",
+    "id": "f2"
+  },
+  {
+    "order": 3,
+    "side": "for",
+    "src": "MLQ",
+    "text": "Debt now funds about 32% of hyperscaler capex, up from 9%. $220B of bonds were issued by Aug 10 versus about $70B in all of 2025, and 78 of 91 are trading above issue yield.",
+    "url": "https://mlq.ai/news/hyperscaler-bond-issuance-reaches-about-220-billion-as-ai-financing-costs-rise/",
+    "id": "f3"
+  },
+  {
+    "order": 4,
+    "side": "for",
+    "src": "Kiplinger",
+    "text": "Anthropic targets a roughly $2T IPO on a $65B run rate (about 31x). Its prospectus shows a $518B infrastructure plan and nearly a quarter of revenue from two unnamed customers.",
+    "url": "https://www.kiplinger.com/investing/ipos/anthropic-to-seek-trillion-ipo-valuation",
+    "id": "f4"
+  },
+  {
+    "order": 5,
+    "side": "for",
+    "src": "RBC Wealth Management",
+    "text": "Top-10 stocks are about 41% of the S&P 500 versus about 23% at end-2000, and cap-weight has beaten equal-weight by about 32% over three years, matching the late-1990s gap.",
+    "url": "https://www.rbcwealthmanagement.com/en-us/insights/the-great-narrowing-sp-500-concentration",
+    "id": "f5"
+  },
+  {
+    "order": 6,
+    "side": "for",
+    "src": "Yahoo Finance (Reuters) / Luminix",
+    "text": "OpenAI reported a $38.5B net loss on $13.07B revenue in 2025. A secondary source (Luminix) also cites projections of about $14B net loss in 2026 and $278B cumulative negative free cash flow through 2030; these conflict with the reported 2025 figure and are unconfirmed.",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/openai-q3-2026-revenue-run-171727199.html",
+    "id": "f6"
+  },
+  {
+    "order": 1,
+    "side": "against",
+    "src": "NVIDIA",
+    "text": "Nvidia Q2 FY27 revenue was $96.2B (+106%) at 75% gross margin with $21.3B of free cash flow. Counterpoint: its customers are the ones spending the capex, so this overlaps with the capex rows.",
+    "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+    "id": "a1"
+  },
+  {
+    "order": 2,
+    "side": "against",
+    "src": "CNBC / Yahoo Finance",
+    "text": "Lab run rates are growing faster than capex: Anthropic from $9B at end-2025 to $65B in July, OpenAI to about $70B in September, against capex growth near 80%. Run rate can overstate recognized revenue.",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/openai-q3-2026-revenue-run-171727199.html",
+    "id": "a2"
+  },
+  {
+    "order": 3,
+    "side": "against",
+    "src": "ValueAdd VC",
+    "text": "Anthropic reported positive adjusted operating income in Q2 2026. This is adjusted, and its 2025 GAAP net loss was $42B.",
+    "url": "https://valueaddvc.com/blog/anthropic-revenue-hits-47b-run-rate-how-it-passed-openai-in-just-five-months",
+    "id": "a3"
+  },
+  {
+    "order": 4,
+    "side": "against",
+    "src": "Thunder Compute",
+    "text": "Leading-edge compute is scarce: Blackwell supply is reserved into 2027 and CoWoS is sold out, which is the opposite of the idle-capacity pattern in a glut.",
+    "url": "https://www.thundercompute.com/blog/ai-gpu-rental-market-trends",
+    "id": "a4"
+  },
+  {
+    "order": 5,
+    "side": "against",
+    "src": "Yahoo Finance",
+    "text": "Cloud growth was accelerating as of Q1 2026 results: Google Cloud +63% and AWS +28%, the fastest in 15 quarters. Q2 figures were not checked.",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/just-3-companies-drive-70-145717948.html",
+    "id": "a5"
+  },
+  {
+    "order": 6,
+    "side": "against",
+    "src": "MLQ",
+    "text": "Credit markets are repricing, not panicking: hyperscaler spreads are only about 10bp wider than 2025.",
+    "url": "https://mlq.ai/news/hyperscaler-bond-issuance-reaches-about-220-billion-as-ai-financing-costs-rise/",
+    "id": "a6"
+  }
+]
