@@ -6,6 +6,8 @@ A research project that measures how financially fragile the global AI investmen
 
 **Central question:** is the economic value created by AI growing quickly enough, profitably enough and sustainably enough to justify the capital being committed to it?
 
+**[View the live dashboard](https://elmaj22.github.io/ai-bubble-stress-engine/)**: current score, history, and the evidence for and against.
+
 <!-- ABSI:START -->
 ## Current reading (ABSI v0.2, data as of 2026-10-03)
 
