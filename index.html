@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Bubble Stress Index (ABSI)</title>
+<meta name="description" content="A live, evidence-driven index of how stressed the AI investment cycle looks. By Aldrin Joseph.">
+<style>
+:root{
+  --bg:#f6f5f1; --card:#ffffff; --ink:#1c1d21; --muted:#5f636b; --line:#e3e1da;
+  --low:#2f8f5b; --mod:#c99a1c; --high:#d9702a; --ext:#b8322f;
+  --accent:#27408b; --for:#b8322f; --against:#2f8f5b; --track:#ebe9e2;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#14161a; --card:#1d2025; --ink:#eceae4; --muted:#a2a6ae; --line:#2e3238;
+    --low:#4cb67f; --mod:#e0b43c; --high:#ec8a47; --ext:#e0544f; --accent:#8da2e8;
+    --for:#e0726e; --against:#4cb67f; --track:#2a2e34; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:1.1rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 22px;font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.note{color:var(--muted);font-size:.87rem;margin:6px 0 0}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+.big{font-size:4rem;font-weight:700;line-height:1;letter-spacing:-.03em}
+.big small{font-size:1.2rem;font-weight:500;color:var(--muted)}
+.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.85rem;font-weight:600;color:#fff;margin-top:8px}
+.meter{position:relative;height:16px;border-radius:8px;overflow:hidden;display:flex;margin-top:14px}
+.meter span{display:block;height:100%}
+.meterwrap{position:relative}
+.range{position:absolute;top:26px;height:6px;background:var(--ink);border-radius:3px;opacity:.55;pointer-events:none}
+.pin{position:absolute;top:8px;width:3px;height:32px;background:var(--ink);transform:translateX(-1.5px)}
+.ticks{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-top:22px}
+.stats{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:14px;font-size:.92rem}
+.stats b{display:block;font-size:1.15rem}
+.stats span{color:var(--muted);font-size:.8rem}
+.comp{display:grid;grid-template-columns:150px 1fr 56px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+.comp:first-of-type{border-top:0}
+.comp .nm{font-size:.92rem}
+.comp .nm i{display:block;font-style:normal;color:var(--muted);font-size:.75rem}
+.track{height:14px;background:var(--track);border-radius:7px;overflow:hidden}
+.fill{height:100%;border-radius:7px}
+.val{text-align:right;font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ev{list-style:none;margin:0;padding:0}
+.ev li{padding:10px 0;border-top:1px solid var(--line);font-size:.9rem}
+.ev li:first-child{border-top:0}
+.ev a{color:var(--accent);font-size:.8rem;word-break:break-word}
+.ev .src{font-weight:600;font-size:.8rem;color:var(--muted);display:block}
+.hfor{color:var(--for)} .hag{color:var(--against)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+td,th{text-align:left;padding:6px 8px;border-top:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:.8rem;border-top:0}
+#chart{overflow-x:auto}
+#chart svg{min-width:560px}
+svg text{fill:var(--muted);font-size:11px;font-family:inherit}
+.err{color:var(--ext)}
+details summary{cursor:pointer;font-weight:600}
+footer{color:var(--muted);font-size:.85rem;margin-top:24px}
+footer a{color:var(--accent)}
+@media (max-width:700px){
+  .hero{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .comp{grid-template-columns:110px 1fr 44px}
+  .big{font-size:3.2rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI Bubble Stress Index (ABSI)</h1>
+  <p class="sub">A live gauge of how financially stretched the AI investment cycle looks. It reports stress, not a crash forecast. By Aldrin Joseph.</p>
+
+  <div class="card" id="hero"><p class="note">Loading latest reading&hellip;</p></div>
+
+  <div class="card">
+    <h2>Score history</h2>
+    <p class="note" style="margin:0 0 8px">One point per day the update runs (weekdays). The shaded zones are the stress bands.</p>
+    <div id="chart"></div>
+    <div id="histnote" class="note"></div>
+  </div>
+
+  <div class="card">
+    <h2>What is driving the score</h2>
+    <p class="note" style="margin:0 0 8px">Stress for each of the seven components, 0 (none) to 100 (extreme). The weight is how much each counts toward the headline score.</p>
+    <div id="comps"></div>
+  </div>
+
+  <div class="card">
+    <h2>Evidence for and against</h2>
+    <p class="note" style="margin:0 0 12px">The index is built to be able to conclude low stress, so counter-evidence sits right next to the supporting evidence.</p>
+    <div class="two">
+      <div><h2 class="hfor">Raises stress</h2><ul class="ev" id="for"></ul></div>
+      <div><h2 class="hag">Lowers stress</h2><ul class="ev" id="against"></ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Same data, different weightings</h2>
+    <div id="schemes"></div>
+    <p class="note">If the three numbers are close, the answer does not depend heavily on how the pieces are weighted.</p>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>Limitations (please read)</summary>
+      <ul>
+        <li>Anchors and weights are the author's hypotheses. The index has not been backtested.</li>
+        <li>Only about half of the planned indicators are live. Utilization, token economics, productivity and venture flows are not measured yet.</li>
+        <li>Many indicators are analyst judgments, and lab revenue is run rate, not recognized revenue.</li>
+        <li>Low confidence means the number should be read as a range. An earlier robustness test of 1,000 random weightings gave a 5th to 95th percentile of 44 to 68 around a median of 57.</li>
+        <li>Conflict of interest: the analysis was built with Claude (Anthropic), and Anthropic's IPO is the subject of one indicator.</li>
+        <li>Not investment advice.</li>
+      </ul>
+    </details>
+  </div>
+
+  <footer>
+    Data and method: <a href="https://github.com/ELMAJ22/ai-bubble-stress-engine">github.com/ELMAJ22/ai-bubble-stress-engine</a>.
+    Updated automatically each weekday by a free GitHub Actions job. Shiller CAPE and credit spreads are automatic; other indicators are refreshed by hand.
+  </footer>
+</div>
+
+<script>
+// ---- Settings: the only things to change if file names move ----
+var CFG = {
+  snapshots: "data/snapshots.csv",
+  latest: "data/latest.json",
+  evidence: "data/evidence_2026-10-02.json",
+  // From the v0.1 robustness test (1,000 random weightings). Update after a new test.
+  robustLow: 44, robustHigh: 68, robustNote: "v0.1 robustness range (5th to 95th percentile)"
+};
+var COMPS = [
+  ["E","Market exuberance",10],["V","Valuation",25],["M","Capex vs monetization",20],
+  ["P","Profitability",15],["F","Financing",5],["I","Infrastructure",5],["S","Supply vs demand",20]
+];
+var BANDS = [
+  {max:35,name:"Low",c:"var(--low)"},{max:55,name:"Moderate",c:"var(--mod)"},
+  {max:75,name:"Elevated to high",c:"var(--high)"},{max:101,name:"Extreme",c:"var(--ext)"}
+];
+function band(v){for(var i=0;i<BANDS.length;i++){if(v<BANDS[i].max)return BANDS[i];}return BANDS[3];}
+function el(t,cls,txt){var e=document.createElement(t);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function get(url){return fetch(url+"?t="+Date.now()).then(function(r){if(!r.ok)throw new Error(url+" "+r.status);return r;});}
+function r0(x){return Math.round(x);}
+
+function parseCSV(t){
+  var lines=t.trim().split(/\r?\n/),h=lines[0].split(",");
+  return lines.slice(1).filter(Boolean).map(function(l){var c=l.split(","),o={};h.forEach(function(k,i){o[k.trim()]=(c[i]||"").trim();});return o;});
+}
+
+function drawHero(L){
+  var h=document.getElementById("hero");h.innerHTML="";
+  var s=L.composite,b=band(s),conf=r0(L.confidence*100);
+  var g=el("div","hero"),left=el("div"),right=el("div");
+  var big=el("div","big",r0(s));big.appendChild(el("small",null," / 100"));
+  left.appendChild(big);
+  var bd=el("div","badge",b.name+" stress");bd.style.background=b.c;left.appendChild(bd);
+  var d=el("div","note","As of "+L.date+" ("+L.version+")");left.appendChild(d);
+
+  var mw=el("div","meterwrap"),m=el("div","meter");
+  var prev=0;BANDS.forEach(function(x){var w=Math.min(x.max,100)-prev;prev=Math.min(x.max,100);var sp=el("span");sp.style.width=w+"%";sp.style.background=x.c;sp.style.opacity=.85;m.appendChild(sp);});
+  mw.appendChild(m);
+  var rg=el("div","range");rg.style.left=CFG.robustLow+"%";rg.style.width=(CFG.robustHigh-CFG.robustLow)+"%";mw.appendChild(rg);
+  var pin=el("div","pin");pin.style.left=s+"%";mw.appendChild(pin);
+  right.appendChild(mw);
+  var tk=el("div","ticks");["0","35","55","75","100"].forEach(function(x){tk.appendChild(el("span",null,x));});
+  right.appendChild(tk);
+  right.appendChild(el("p","note","Black line: current score. Thin bar under the gauge: "+CFG.robustNote+", "+CFG.robustLow+" to "+CFG.robustHigh+". Treat the score as a range, not an exact figure."));
+  var st=el("div","stats");
+  [[conf+" / 100","Confidence (low: many indicators missing)"],[L.indicators_used+" of about 34","Indicators in use"],
+   [(L.stale&&Object.keys(L.stale).length)?Object.keys(L.stale).length+" stale":"None stale","Data freshness"]].forEach(function(p){
+    var x=el("div");x.appendChild(el("b",null,p[0]));x.appendChild(el("span",null,p[1]));st.appendChild(x);});
+  right.appendChild(st);
+  if(L.errors&&L.errors.length){right.appendChild(el("p","note err","Last update had errors: "+L.errors.join("; ")+". The previous values were kept."));}
+  g.appendChild(left);g.appendChild(right);h.appendChild(g);
+}
+
+function drawChart(rows){
+  var box=document.getElementById("chart");box.innerHTML="";
+  var data=rows.map(function(r){return {d:r.date,v:parseFloat(r.composite_protocol),lo:parseFloat(r.composite_valuation_halved),eq:parseFloat(r.composite_equal),ver:r.version};}).filter(function(x){return !isNaN(x.v);});
+  var W=900,H=300,L=40,R=16,T=12,B=34,n=data.length;
+  var svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);svg.setAttribute("width","100%");svg.setAttribute("role","img");
+  svg.setAttribute("aria-label","Line chart of the ABSI composite score over time");
+  function X(i){return n<2?(L+W-R)/2:L+(W-L-R)*i/(n-1);}
+  function Y(v){return T+(H-T-B)*(1-v/100);}
+  function mk(t,a){var e=document.createElementNS("http://www.w3.org/2000/svg",t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  var prev=0;
+  BANDS.forEach(function(b){var top=Math.min(b.max,100);svg.appendChild(mk("rect",{x:L,y:Y(top),width:W-L-R,height:Y(prev)-Y(top),fill:b.c,opacity:.13}));prev=top;});
+  [0,25,50,75,100].forEach(function(v){
+    svg.appendChild(mk("line",{x1:L,x2:W-R,y1:Y(v),y2:Y(v),stroke:"currentColor",opacity:.12}));
+    var t=mk("text",{x:L-6,y:Y(v)+4,"text-anchor":"end"});t.textContent=v;svg.appendChild(t);});
+  // low/high envelope across schemes
+  if(n>=2){
+    var up=data.map(function(p,i){return X(i)+","+Y(Math.max(p.v,p.eq,p.lo));});
+    var dn=data.map(function(p,i){return X(i)+","+Y(Math.min(p.v,p.eq,p.lo));}).reverse();
+    svg.appendChild(mk("polygon",{points:up.concat(dn).join(" "),fill:"var(--accent)",opacity:.15}));
+    svg.appendChild(mk("polyline",{points:data.map(function(p,i){return X(i)+","+Y(p.v);}).join(" "),fill:"none",stroke:"var(--accent)","stroke-width":2.5}));
+  }
+  data.forEach(function(p,i){
+    var c=mk("circle",{cx:X(i),cy:Y(p.v),r:5,fill:"var(--accent)",stroke:"var(--card)","stroke-width":2});
+    var tt=mk("title",{});tt.textContent=p.d+" ("+p.ver+"): "+p.v.toFixed(1)+"  [range across weightings "+Math.min(p.v,p.eq,p.lo).toFixed(1)+" to "+Math.max(p.v,p.eq,p.lo).toFixed(1)+"]";c.appendChild(tt);svg.appendChild(c);
+    var show=n<=8||i===0||i===n-1||i%Math.ceil(n/8)===0;
+    if(show){var t=mk("text",{x:X(i),y:H-12,"text-anchor":n<2?"middle":(i===0?"start":(i===n-1?"end":"middle"))});t.textContent=p.d;svg.appendChild(t);}
+    if(i===n-1){var lb=mk("text",{x:X(i),y:Y(p.v)-12,"text-anchor":n<2?"middle":"end"});lb.style.fill="var(--ink)";lb.style.fontWeight="700";lb.style.fontSize="13px";lb.textContent=p.v.toFixed(1);svg.appendChild(lb);}
+  });
+  box.appendChild(svg);
+  var note="Line: protocol weights. Blue band: spread between the protocol, equal-weight and valuation-halved versions.";
+  var vers={};data.forEach(function(p){vers[p.ver]=1;});
+  if(Object.keys(vers).length>1)note+=" The method changed from v0.1 to v0.2 (a credit-spread indicator was added), so early points are not strictly comparable.";
+  if(n<10)note+=" History is short because the index launched on 2 October 2026; the chart fills in as days pass.";
+  document.getElementById("histnote").textContent=note;
+}
+
+function drawComps(L){
+  var box=document.getElementById("comps");box.innerHTML="";
+  COMPS.slice().sort(function(a,b){return (L.components[b[0]]||0)-(L.components[a[0]]||0);}).forEach(function(c){
+    var v=L.components[c[0]];if(v==null)return;
+    var row=el("div","comp"),nm=el("div","nm",c[1]);nm.appendChild(el("i",null,"weight "+c[2]+"%"));
+    var tr=el("div","track"),f=el("div","fill");f.style.width=Math.max(0,Math.min(100,v))+"%";f.style.background=band(v).c;tr.appendChild(f);
+    row.appendChild(nm);row.appendChild(tr);row.appendChild(el("div","val",r0(v)));box.appendChild(row);
+  });
+}
+
+function drawSchemes(L){
+  var box=document.getElementById("schemes");box.innerHTML="";
+  var t=el("table"),hd=el("tr");["Weighting","Score","Band"].forEach(function(x){hd.appendChild(el("th",null,x));});t.appendChild(hd);
+  Object.keys(L.schemes).forEach(function(k){var v=L.schemes[k],tr=el("tr");tr.appendChild(el("td",null,k));tr.appendChild(el("td",null,v.toFixed(1)));tr.appendChild(el("td",null,band(v).name));t.appendChild(tr);});
+  box.appendChild(t);
+}
+
+function drawEvidence(list){
+  ["for","against"].forEach(function(side){
+    var ul=document.getElementById(side);ul.innerHTML="";
+    list.filter(function(e){return e.side===side;}).sort(function(a,b){return a.order-b.order;}).forEach(function(e){
+      var li=el("li");li.appendChild(el("span","src",e.src));li.appendChild(el("span",null,e.text));
+      if(e.url&&/^https?:\/\//.test(e.url)){var a=el("a",null," source");a.href=e.url;a.target="_blank";a.rel="noopener noreferrer";li.appendChild(document.createTextNode(" "));li.appendChild(a);}
+      ul.appendChild(li);});
+  });
+}
+
+function fail(id,msg){var e=document.getElementById(id);e.innerHTML="";e.appendChild(el("p","note err",msg));}
+
+get(CFG.latest).then(function(r){return r.json();}).then(function(L){drawHero(L);drawComps(L);drawSchemes(L);})
+  .catch(function(e){fail("hero","Could not load the latest reading ("+e.message+").");});
+get(CFG.snapshots).then(function(r){return r.text();}).then(function(t){drawChart(parseCSV(t));})
+  .catch(function(e){fail("chart","Could not load the history ("+e.message+").");});
+get(CFG.evidence).then(function(r){return r.json();}).then(drawEvidence)
+  .catch(function(e){fail("for","Could not load evidence ("+e.message+").");});
+</script>
+</body>
+</html>
