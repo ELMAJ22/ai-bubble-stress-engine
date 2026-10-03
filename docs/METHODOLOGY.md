@@ -71,3 +71,13 @@ Conditions that would lower or raise the score are fixed in advance in [`FALSIFI
 - Group averaging reduces but does not remove double counting (capex, Nvidia revenue and GPU demand all overlap economically).
 - Run-rate revenue overstates recognized revenue for fast-growing firms.
 - A score is not a probability. There is no probability model.
+
+## 9. ABSI v0.2: automation (2026-10-03)
+
+v0.2 keeps v0.1's weights, planned counts, formula and all launch indicator values. Changes, fixed in advance:
+
+1. **CAPE** is refreshed automatically from Shiller's public data. Same definition and anchors (17 to 44).
+2. **`ig_oas`** is added to Capital flow / financing: the ICE BofA US investment-grade option-adjusted spread from FRED, with anchors 0.8 percentage points (no stress) and 2.5 (maximum stress). It is a broad credit-conditions measure, not AI-specific, so it can move for reasons unrelated to AI. At current spreads it lowers financing stress, which is counter-evidence to the thesis.
+3. **Stale inputs:** if a series is older than its limit (CAPE 45 days, spread 7 days) its confidence is halved. If a fetch fails the last value is kept and the failure is shown in the README.
+
+Not automated in v0.2: company capex, revenue and cash flow; AI-lab revenue and valuations; concentration measures; all judgment rows. They keep launch values until updated by hand and logged in the journal. The v0.1 launch row in `snapshots.csv` is left untouched.

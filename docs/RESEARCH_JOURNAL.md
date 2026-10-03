@@ -38,3 +38,10 @@ Before publishing, every figure was re-checked against its source. Wording corre
 - **Weight robustness added to the script.** Under 1,000 random weightings the composite has median 57 and a 5th-95th percentile band of 44 to 68 (full range 30 to 77); jittering judgment rows by up to 10 points leaves the band unchanged. Conclusion: the headline 58 is not precise. The defensible reading is moderate to elevated stress at low confidence.
 - **Falsification thresholds written down before the next reading** (`FALSIFICATION.md`). First coverage estimate: the two frontier labs' run rates ($135B) cover about 38% of the roughly $352B revenue that 2026 capex must earn for a 10% return, at a 5.5-year server life and 60% gross margin. This understates total AI revenue and run rates overstate recognized revenue.
 - **Weakness:** the thresholds are judgment, not derived from data. They will be tested in the backtest.
+
+## Entry 2: 2026-10-03: ABSI v0.2 automation
+
+- **What changed:** a daily GitHub Actions job now refreshes CAPE and adds one measured indicator (US investment-grade credit spread). Weights and all other values are unchanged. Details in METHODOLOGY section 9.
+- **Expected effect:** with spreads near 1 percentage point, the new indicator reads as low stress (about 6/100 at 0.9), which lowers the financing component and the composite by a few points. This is a consequence of adding a measured, counter-thesis indicator, not a change of view.
+- **Weaknesses:** the spread is broad investment-grade credit, not AI debt specifically; the anchors (0.8 and 2.5) are judgment; the job was tested offline with fixtures and a generated spreadsheet, and its first live run against the real Yale and FRED files is the real test; most of the index still moves only when someone updates it by hand.
+- **Next:** check the first live run, then replace judgment rows with measured ones (SEC filings for capex, revenue and cash flow), then the backtest.

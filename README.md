@@ -6,13 +6,14 @@ A research project that measures how financially fragile the global AI investmen
 
 **Central question:** is the economic value created by AI growing quickly enough, profitably enough and sustainably enough to justify the capital being committed to it?
 
-## Current reading (ABSI v0.1, data as of 2026-10-02)
+<!-- ABSI:START -->
+## Current reading (ABSI v0.1 (launch), data as of 2026-10-02)
 
 | | |
 |---|---|
-| **Composite stress** | **58 / 100** (range 54 to 58 across three weighting schemes) |
-| **Confidence** | **about 25 / 100** (most planned indicators cannot yet be measured from public data) |
-| **Provisional regime** | Speculative expansion: market-side stress is high while demand-side indicators still look strong |
+| **Composite stress** | **58 / 100** (Elevated to high stress; 54 to 58 across three weighting schemes) |
+| **Confidence** | **about 25 / 100** (17 of about 34 planned indicators have data) |
+| **Provisional regime** | Speculative expansion |
 
 | Component | Stress (0-100) |
 |---|---|
@@ -24,7 +25,21 @@ A research project that measures how financially fragile the global AI investmen
 | Physical infrastructure | 35 |
 | Supply vs demand | 19 |
 
-This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement. Evidence **against** the bubble thesis (Nvidia revenue +106% at 75% gross margin, lab revenue growing faster than capex, scarce leading-edge compute) is listed next to the supporting evidence in [`data/evidence_2026-10-02.json`](data/evidence_2026-10-02.json).
+This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement.
+<!-- ABSI:END -->
+
+Evidence **against** the bubble thesis (Nvidia revenue +106% at 75% gross margin, lab revenue growing faster than capex, scarce leading-edge compute) is listed next to the supporting evidence in [`data/evidence_2026-10-02.json`](data/evidence_2026-10-02.json).
+
+## Automatic updates (ABSI v0.2)
+
+A GitHub Actions job (`.github/workflows/daily.yml`) runs every weekday. It runs the tests, then `scripts/update_data.py` fetches two free public series, re-scores the index and commits the result:
+
+- **Shiller CAPE** (monthly, Yale): refreshes the valuation indicator. Same definition and anchors as v0.1.
+- **US investment-grade credit spread** (daily, FRED/ICE BofA): a new measured financing indicator with anchors fixed in advance (0.8 points = no stress, 2.5 = maximum).
+
+Everything else (company capex and revenue, AI-lab figures, concentration, and the judgment rows) is **not** automated and keeps its launch values until it is updated by hand and recorded in the journal. If a source fails, the last value is kept, the failure is shown in the block above, and the indicator's confidence is halved once the value is stale. The number therefore moves on credit conditions and monthly valuation, not on every news item. See [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) section 9.
+
+The block above is rewritten by the job; the history is in [`data/snapshots.csv`](data/snapshots.csv) and the latest details in `data/latest.json`.
 
 ## How robust is the number?
 
@@ -57,6 +72,10 @@ It reads the data files and prints the composite, the three weighting schemes, t
 | `data/config_v0.1.json` | Weights, planned indicator counts, required-revenue settings, known data gaps |
 | `data/snapshots.csv` | Score history |
 | `scripts/absi_score.py` | The scoring formula |
+| `scripts/update_data.py` | Daily fetch, re-score and snapshot |
+| `tests/` | Unit tests (parsing, scoring, outputs) |
+| `.github/workflows/daily.yml` | The daily job |
+| `data/config_v0.2.json`, `data/auto_state.json` | v0.2 settings and the last fetched values |
 
 ## Known weaknesses (stated up front)
 
