@@ -1,12 +1,12 @@
 {
   "date": "2026-10-05",
   "version": "ABSI v0.2",
-  "composite": 57.47,
+  "composite": 57.46,
   "confidence": 0.2522,
   "schemes": {
-    "Protocol weights": 57.47,
-    "Equal weights": 54.73,
-    "Valuation halved": 52.81
+    "Protocol weights": 57.46,
+    "Equal weights": 54.71,
+    "Valuation halved": 52.79
   },
   "components": {
     "V": 75.62,
@@ -14,7 +14,7 @@
     "S": 19.38,
     "P": 60.36,
     "E": 84.21,
-    "F": 41.65,
+    "F": 41.48,
     "I": 35.0
   },
   "indicators_used": 18,
