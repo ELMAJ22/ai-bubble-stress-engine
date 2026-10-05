@@ -9,7 +9,7 @@ A research project that measures how financially fragile the global AI investmen
 **[View the live dashboard](https://elmaj22.github.io/ai-bubble-stress-engine/)**: current score, history, and the evidence for and against.
 
 <!-- ABSI:START -->
-## Current reading (ABSI v0.2, data as of 2026-10-03)
+## Current reading (ABSI v0.2, data as of 2026-10-05)
 
 | | |
 |---|---|
