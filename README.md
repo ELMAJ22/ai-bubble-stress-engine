@@ -23,7 +23,7 @@ A research project that measures how financially fragile the global AI investmen
 | Valuation | 73 |
 | Capex / monetization | 67 |
 | Profitability / cash flow | 60 |
-| Capital flow / financing | 42 |
+| Capital flow / financing | 43 |
 | Physical infrastructure | 35 |
 | Supply vs demand | 19 |
 
