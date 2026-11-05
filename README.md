@@ -20,7 +20,7 @@ A research project that measures how financially fragile the global AI investmen
 | Component | Stress (0-100) |
 |---|---|
 | Market exuberance | 84 |
-| Valuation | 73 |
+| Valuation | 74 |
 | Capex / monetization | 67 |
 | Profitability / cash flow | 60 |
 | Capital flow / financing | 43 |
