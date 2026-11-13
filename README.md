@@ -13,7 +13,7 @@ A research project that measures how financially fragile the global AI investmen
 
 | | |
 |---|---|
-| **Composite stress** | **57 / 100** (Elevated to high stress; 53 to 57 across three weighting schemes) |
+| **Composite stress** | **57 / 100** (Elevated to high stress; 52 to 57 across three weighting schemes) |
 | **Confidence** | **about 25 / 100** (18 of about 34 planned indicators have data) |
 | **Provisional regime** | Speculative expansion |
 
