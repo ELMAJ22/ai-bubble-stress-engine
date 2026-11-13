@@ -2,13 +2,13 @@
   "ig_oas": {
     "value": 0.9,
     "obs": "2026-11-11",
-    "fetched": "2026-11-12",
+    "fetched": "2026-11-13",
     "source": "FRED IG spread"
   },
   "cape": {
-    "value": 40.24,
+    "value": 40.09,
     "obs": "2026-11",
-    "fetched": "2026-11-12",
+    "fetched": "2026-11-13",
     "source": "Shiller CAPE"
   }
 }
