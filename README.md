@@ -9,19 +9,19 @@ A research project that measures how financially fragile the global AI investmen
 **[View the live dashboard](https://elmaj22.github.io/ai-bubble-stress-engine/)**: current score, history, and the evidence for and against.
 
 <!-- ABSI:START -->
-## Current reading (ABSI v0.2, data as of 2026-11-20)
+## Current reading (ABSI v0.2, data as of 2026-11-23)
 
 | | |
 |---|---|
-| **Composite stress** | **55 / 100** (Elevated to high stress; 52 to 55 across three weighting schemes) |
+| **Composite stress** | **55 / 100** (Moderate stress; 52 to 55 across three weighting schemes) |
 | **Confidence** | **about 25 / 100** (18 of about 34 planned indicators have data) |
 | **Provisional regime** | Speculative expansion |
 
 | Component | Stress (0-100) |
 |---|---|
 | Market exuberance | 84 |
-| Valuation | 67 |
 | Capex / monetization | 67 |
+| Valuation | 64 |
 | Profitability / cash flow | 60 |
 | Capital flow / financing | 43 |
 | Physical infrastructure | 35 |
