@@ -5,8 +5,8 @@
   "confidence": 0.2522,
   "schemes": {
     "Protocol weights": 54.69,
-    "Equal weights": 53.38,
-    "Valuation halved": 51.6
+    "Equal weights": 53.36,
+    "Valuation halved": 51.58
   },
   "components": {
     "V": 64.1,
@@ -14,7 +14,7 @@
     "S": 19.38,
     "P": 60.36,
     "E": 84.21,
-    "F": 43.71,
+    "F": 43.54,
     "I": 35.0
   },
   "indicators_used": 18,
