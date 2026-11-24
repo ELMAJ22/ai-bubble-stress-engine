@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-23",
+  "date": "2026-11-24",
   "version": "ABSI v0.2",
   "composite": 54.69,
   "confidence": 0.2522,
@@ -19,5 +19,7 @@
   },
   "indicators_used": 18,
   "stale": {},
-  "errors": []
+  "errors": [
+    "Shiller CAPE: multpl: fetch failed for https://www.multpl.com/shiller-pe: <urlopen; yale: CAPE 0.018722853569909235 outside plausible "
+  ]
 }

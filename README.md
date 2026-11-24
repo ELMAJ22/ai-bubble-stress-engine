@@ -9,7 +9,7 @@ A research project that measures how financially fragile the global AI investmen
 **[View the live dashboard](https://elmaj22.github.io/ai-bubble-stress-engine/)**: current score, history, and the evidence for and against.
 
 <!-- ABSI:START -->
-## Current reading (ABSI v0.2, data as of 2026-11-23)
+## Current reading (ABSI v0.2, data as of 2026-11-24)
 
 | | |
 |---|---|
@@ -27,7 +27,7 @@ A research project that measures how financially fragile the global AI investmen
 | Physical infrastructure | 35 |
 | Supply vs demand | 19 |
 
-This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement.
+This is a **stress score, not a probability of a crash.** Low confidence means the number is a rough position, not a measurement. Last update had fetch problems: Shiller CAPE: multpl: fetch failed for https://www.multpl.com/shiller-pe: <urlopen; yale: CAPE 0.018722853569909235 outside plausible .
 <!-- ABSI:END -->
 
 Evidence **against** the bubble thesis (Nvidia revenue +106% at 75% gross margin, lab revenue growing faster than capex, scarce leading-edge compute) is listed next to the supporting evidence in [`data/evidence_2026-10-02.json`](data/evidence_2026-10-02.json).
